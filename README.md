@@ -130,8 +130,8 @@ The following scenarios were verified:
 ##  Design Bugs Identified After UVM Verification
 
 ###  Invalid Input Pattern Handling
-The FIFO did not properly handle unexpected control input patterns.  
-Random testing exposed unstable internal behavior.
+- The FIFO did not properly handle unexpected control input patterns.  
+- Random testing exposed unstable internal behavior.
 
 ---
 
