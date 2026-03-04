@@ -12,15 +12,19 @@ The objective of this project is to:
 - Ensure the design meets the given specifications under all conditions
 
 ##  FIFO Design Features
-- Parameterized FIFO depth - 8 elements, each with a width of 8 bits
-- Asynchronous reset
-- Write Operation
-- Read Operation
-- Write Enable Signal
-- Read Enable Signal
-- Full flag
-- Empty flag
-- Pointer-based implementation
+- FIFO Type: Synchronous
+- Data Width: 8-bit
+- Depth: 8 entries
+- Operations:
+  - `write - store`
+  - `read - retrieve `
+- Reset: Asynchronous reset
+- Control Signals:
+  - `write_enable`
+  - `read_enable`
+- Status Flags:
+  - `full`
+  - `empty`
 
 ## Testbench Architecture
 
@@ -28,15 +32,15 @@ The objective of this project is to:
 
 The FIFO is verified using **UVM (Universal Verification Methodology)**.
 
-- Sequence_item (Transaction)
-- Sequencses
-- Sequencer
-- Driver
-- Monitor
-- Agent
-- Scoreboard
-- Subscriber
-- Environment
+- **Sequence_item** (Transaction)
+- **Sequencses**
+- **Sequencer**
+- **Driver**
+- **Monitor**
+- **Agent**
+- **Scoreboard**
+- **Subscriber**
+- **Environment**
 
 ### Interface Signals
 
@@ -102,6 +106,73 @@ FIFO/
 └── README.md
 ```
 
-  
+# Test Scenarios
+
+The following scenarios were verified:
+
+-  Reset behavior
+-  Write-only operation
+-  Read-only operation
+-  Simultaneous read/write operation
+-  Full condition
+-  Empty condition
+-  Underflow condition
+-  Overflow condition
+-  Invalid input patterns
+-  Random cases
+-  Regression testing
+-  Random testing
+-  Mixed sases
+-  Corner cases
+-  Boundary cases
 
 
+##  Design Bugs Identified After UVM Verification
+
+###  Invalid Input Pattern Handling
+The FIFO did not properly handle unexpected control input patterns.  
+Random testing exposed unstable internal behavior.
+
+---
+
+### Read/Write Priority Issue
+When both `write_enable` and `read_enable` were active:
+- FIFO did not correctly handle priority (read has more priority than write operation).
+- Incorrect data could be read.
+- Scoreboard detected mismatches.
+
+---
+
+###  Read From Empty FIFO (Underflow)
+When FIFO was empty and a read occurred:
+- Output behavior was not properly protected.
+- Underflow handling required correction.
+
+All issues were detected using:
+- Scoreboard comparison
+- Directed sequences received from monitor
+- Waveform analysis introduced by simulator
+
+---
+
+## Coverage Report
+
+Functional Coverage: 87.24 % 
+
+---
+#  How to Run Simulation (QuestaSim)
+
+```bash
+vlog -sv rtl/fifo.sv tb/**/*.sv
+vsim work.testbench
+run -all
+```
+
+##  Tools Used
+
+- SystemVerilog
+- UVM 1.2
+- Siemens Questa 2025.2
+- Visual Studio code (VS Code).
+- EDA Playgroud simulator
+- Git, GitHub & GitLab
