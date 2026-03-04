@@ -24,7 +24,9 @@ The objective of this project is to:
 
 ## Testbench Architecture
 
-### UVM Components Used to Verify FIFO
+###  Verification Methodology
+
+The FIFO is verified using **UVM (Universal Verification Methodology)**.
 
 - Sequence_item (Transaction)
 - Sequencses
@@ -52,6 +54,53 @@ The following table describes the FIFO module interface signals:
 | `empty`        | 1   | output    | Indicates that the FIFO is empty and has no data to read. |
 
 
+### Project Structure
+The FIFO project follows a clean and scalable UVM-based architecture.
+The directory organization is structured to clearly separate RTL design from verification components
+
+```
+FIFO/
+│
+├── rtl/
+│   └── fifo.sv
+│
+├── tb/
+│   │
+│   ├── agent/
+│   │   ├── fifo_driver.sv
+│   │   ├── fifo_monitor.sv
+│   │   ├── fifo_sequence_item.sv
+│   │   └── fifo_sequencer.sv
+│   │
+│   ├── environment/
+│   │   ├── fifo_agent.sv
+│   │   ├── fifo_environment.sv
+│   │   ├── fifo_scoreboard.sv
+│   │   └── fifo_subscriber.sv
+│   │
+│   ├── interface/
+│   │   └── fifo_interface.sv
+│   │
+│   ├── pkg/
+│   │   └── fifo_pkg.sv
+│   │
+│   ├── sequences/
+│   │   ├── fifo_invalid_input_sequence.sv
+│   │   ├── fifo_random_sequence.sv
+│   │   ├── fifo_read_sequence.sv
+│   │   ├── fifo_read_write_sequence.sv
+│   │   ├── fifo_write_sequence.sv
+│   │   └── fifo_reset_sequence.sv
+│   │
+│   ├── tests/
+│   │   ├── fifo_random_test.sv
+│   │   └── fifo_regression_test.sv
+│   │
+│   └── top/
+│       └── testbench.sv
+│
+└── README.md
+```
 
   
 
