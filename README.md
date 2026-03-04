@@ -22,6 +22,37 @@ The objective of this project is to:
 - Empty flag
 - Pointer-based implementation
 
+## Testbench Architecture
+
+### UVM Components Used to Verify FIFO
+
+- Sequence_item (Transaction)
+- Sequencses
+- Sequencer
+- Driver
+- Monitor
+- Agent
+- Scoreboard
+- Subscriber
+- Environment
+
+### Interface Signals
+
+The following table describes the FIFO module interface signals:
+
+| Signal        | Width | Direction | Description |
+|--------------|-------|-----------|-------------|
+| `clk`        | 1     | input     | Clock signal driving the FIFO module. |
+| `rst`        | 1     | input     | Synchronous reset. Clears stored data and initializes internal signals to default values. |
+| `data_input` | 8     | input     | Data input bus. Represents the data to be written into the FIFO. |
+| `write_enable` | 1   | input     | Write control signal. When asserted, data is stored into the FIFO (if not full). |
+| `read_enable`  | 1   | input     | Read control signal. When asserted, data is retrieved from the FIFO (if not empty). |
+| `data_output`  | 8   | output    | Data output bus. Represents the data read from the FIFO. |
+| `full`         | 1   | output    | Indicates that the FIFO is full and cannot accept new data. |
+| `empty`        | 1   | output    | Indicates that the FIFO is empty and has no data to read. |
+
+
+
   
 
 
